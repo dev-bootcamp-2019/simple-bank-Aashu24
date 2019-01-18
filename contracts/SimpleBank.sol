@@ -13,27 +13,27 @@ contract SimpleBank {
     //
     
     /* Fill in the keyword. Hint: We want to protect our users balance from other contracts*/
-    mapping (address => uint) balances;
+    private mapping (address => uint) balances;
     
     /* Fill in the keyword. We want to create a getter function and allow contracts to be able to see if a user is enrolled.  */
-    mapping (address => bool) enrolled;
+    public mapping (address => bool) enrolled;
 
     /* Let's make sure everyone knows who owns the bank. Use the appropriate keyword for this*/
-    address owner;
+    public address owner;
     
     //
     // Events - publicize actions to external listeners
     //
     
     /* Add an argument for this event, an accountAddress */
-    event LogEnrolled();
+    event LogEnrolled(address accountAddress);
 
     /* Add 2 arguments for this event, an accountAddress and an amount */
-    event LogDepositMade();
+    event LogDepositMade(address accountAddress, int amount);
 
     /* Create an event called LogWithdrawal */
     /* Add 3 arguments for this event, an accountAddress, withdrawAmount and a newBalance */
-
+    event LogWithdrawal(address accountAddress, int withdraAmount, int newBalance);
 
     //
     // Functions
@@ -42,6 +42,7 @@ contract SimpleBank {
     /* Use the appropriate global variable to get the sender of the transaction */
     constructor() {
         /* Set the owner to the creator of this contract */
+        owner=msg.sender;
     }
 
     /// @notice Get balance
